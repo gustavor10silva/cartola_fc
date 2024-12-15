@@ -1,5 +1,6 @@
 import requests
 import pandas as pd
+import json
 
 
 class BaseCartola():
@@ -17,10 +18,17 @@ class BaseCartola():
               url: url na qual será feita a requisição pela lib requests (string)
 
           :return: df_atletas (df), df_clubes (df)
+        
+        with open('resposta.json', 'r', encoding='utf-8') as f:
+            data = json.load(f)
+
+        df_atletas = pd.DataFrame(data['atletas'])
+        df_clubes = pd.DataFrame(data['clubes'])
         """
         resposta = requests.get(self.url)
         df_atletas = pd.DataFrame(resposta.json()['atletas'])
         df_clubes = pd.DataFrame(resposta.json()['clubes'])
+
         return df_clubes, df_atletas
 
 
@@ -239,17 +247,17 @@ class BaseCartola():
             267 : 'VAS',
             275 : 'PAL',
             276 : 'SAO',
-            277 : 'SAN',
             280 : 'BGT',
             282 : 'CAM',
             283 : 'CRU',
             284 : 'GRE',
             285 : 'INT',
-            290 : 'GOI',
+            286 : 'JUV',
+            287 : 'VIT',
+            288 : 'CRI',
             293 : 'CAP',
-            294 : 'CFC',
-            327 : 'AME',
             356 : 'FOR',
+            373 : 'ACG',
             1371 : 'CUI'},
             na_action=None)
 
